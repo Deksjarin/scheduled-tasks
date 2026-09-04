@@ -3,6 +3,7 @@ import random
 import smtplib
 import datetime as dt
 import os
+from email.message import EmailMessage
 
 MY_EMAIL = os.environ.get("MY_EMAIL")
 PASSWORD = os.environ.get("MY_PASSWORD")
@@ -35,11 +36,13 @@ if today in birthday_dict:
     with open(f"./letter_templates/letter_{random_generator}.txt") as letter:
         letter_text = letter.read()
         letter_text = letter_text.replace("[NAME]", name)
+    message = EmailMessage()
+    message["Subject"] = "Boldog születésnapot!"
+    message["From"] = MY_EMAIL
+    message["To"] = person["email"]
+    message.set_content(letter_text)
     with smtplib.SMTP("smtp.gmail.com", 587) as connection:
         connection.starttls()
         connection.login(user=MY_EMAIL, password=PASSWORD)
-        connection.sendmail(
-            from_addr=MY_EMAIL,
-            to_addrs=person["email"],
-            msg=f"Subject: Boldog születésnapot\n\n{letter_text}",
-        )
+        connection.send_message(message)
+        
