@@ -2,6 +2,7 @@ import pandas as pd
 import random
 import smtplib
 import datetime as dt
+import os
 
 MY_EMAIL = "pythontestdejan@gmail.com"
 PASSWORD = ""
