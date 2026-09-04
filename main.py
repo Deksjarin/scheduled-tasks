@@ -4,8 +4,8 @@ import smtplib
 import datetime as dt
 import os
 
-MY_EMAIL = "pythontestdejan@gmail.com"
-PASSWORD = ""
+MY_EMAIL = os.environ.get("MY_EMAIL")
+PASSWORD = os.environ.get("MY_PASSWORD")
 
 
 data = {
